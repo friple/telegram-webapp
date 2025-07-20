@@ -1,0 +1,250 @@
+ <!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mini App — Кристаллы</title>
+<style>
+  /* Базовые стили */
+  body {
+    margin: 0; padding: 0;
+    background: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #0a3d21;
+    user-select: none;
+    overflow-x: hidden;
+  }
+
+  header {
+    background: #1b5e20;
+    color: #ff9800;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  header .user-info {
+    display: flex; align-items: center; gap: 10px;
+  }
+  header .user-info img {
+    border-radius: 50%;
+    width: 40px; height: 40px;
+    border: 2px solid #ff9800;
+  }
+  header .user-info .username {
+    font-weight: 700;
+    font-size: 18px;
+  }
+
+  header .balance {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  main {
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .hidden { display: none; }
+
+  /* Тапалка */
+  #tap-section {
+    text-align: center;
+  }
+
+  #tap-gem {
+    margin: 30px auto;
+    display: block;
+    width: 120px; height: 120px;
+    background: radial-gradient(circle at center, #f48fb1, #e91e63);
+    border-radius: 50%;
+    box-shadow: 0 0 15px #f48fb1;
+    cursor: pointer;
+    font-size: 48px;
+    line-height: 120px;
+    color: white;
+    user-select: none;
+    transition: transform 0.1s ease;
+  }
+  #tap-gem:active {
+    transform: scale(0.9);
+  }
+
+  #daily-info {
+    font-size: 16px;
+    margin-top: -15px;
+    margin-bottom: 20px;
+    color: #555;
+  }
+
+  /* Меню */
+  nav.menu {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  nav.menu button {
+    background: #ff9800;
+    border: none;
+    padding: 12px 16px;
+    color: white;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    user-select: none;
+  }
+  nav.menu button:hover {
+    background: #fb8c00;
+  }
+
+  /* Профиль */
+  #profile-section {
+    font-size: 16px;
+  }
+  #profile-section h2 {
+    margin-bottom: 10px;
+    color: #1b5e20;
+  }
+
+  /* Продажа */
+  #sell-item {
+    margin-top: 15px;
+    background: #ff9800;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+  }
+  #sell-item:hover {
+    background: #fb8c00;
+  }
+
+  /* Промокод */
+  #promo-section {
+    margin-top: 20px;
+  }
+  #promo-input {
+    padding: 10px;
+    width: 70%;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+  #activate-code {
+    padding: 10px 15px;
+    background: #ff9800;
+    border: none;
+    color: white;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    margin-left: 8px;
+  }
+  #activate-code:hover {
+    background: #fb8c00;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="user-info">
+    <img src="https://avatars.githubusercontent.com/u/6499284675?v=4" alt="avatar" />
+    <div class="username">Павап</div>
+  </div>
+  <div class="balance">⭐ <span id="star-count">0</span></div>
+</header>
+
+<nav class="menu">
+  <button data-section="tap-section">Тапалка</button>
+  <button data-section="profile-section">Профиль</button>
+  <button data-section="promo-section">Промокод</button>
+</nav>
+
+<main>
+  <!-- Тапалка -->
+  <section id="tap-section">
+    <div id="daily-info">Осталось гемов на сегодня: 4000</div>
+    <div id="tap-gem" title="Нажми, чтобы получить +5 ⭐">💎</div>
+  </section>
+
+  <!-- Профиль -->
+  <section id="profile-section" class="hidden">
+    <h2>Профиль</h2>
+    <p>Баланс звёзд: <span id="star-count-profile">0</span></p>
+    <button id="sell-item">Продать предмет за 100 ⭐</button>
+  </section>
+
+  <!-- Промокод -->
+  <section id="promo-section" class="hidden">
+    <h2>Активировать промокод</h2>
+    <input id="promo-input" placeholder="Введите промокод" />
+    <button id="activate-code">Активировать</button>
+  </section>
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎮 Friplex Mini App</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💎 Friplex Game</h1>
+      <p id="balance">Баланс: <span>0</span> ⭐</p>
+    </header>
+
+    <main>
+      <section class="tap-section">
+        <img src="gem.png" alt="Gem" id="tap-gem"/>
+        <p class="tap-info">Нажми на кристалл — получай ⭐ (до 4000/день)</p>
+      </section>
+
+      <section class="menu">
+        <button onclick="openSection('roulette')">🎰 Рулетки</button>
+        <button onclick="openSection('inventory')">🎒 Инвентарь</button>
+        <button onclick="openSection('profile')">👤 Профиль</button>
+      </section>
+
+      <section id="roulette" class="hidden">
+        <h2>🎰 Рулетки</h2>
+        <button onclick="spinRoulette(1)">Рулетка (x2, 37%)</button>
+        <button onclick="spinRoulette(2)">PvP Рулетка (против игрока)</button>
+      </section>
+
+      <section id="inventory" class="hidden">
+        <h2>🎒 Инвентарь</h2>
+        <ul id="items-list">
+          <li>Нет предметов</li>
+        </ul>
+      </section>
+
+      <section id="profile" class="hidden">
+        <h2>👤 Профиль</h2>
+        <p>Ваш ID: <span id="user-id"></span></p>
+        <p>Приглашено: <span id="ref-count">0</span></p>
+        <button onclick="activatePromo()">🎟 Ввести промокод</button>
+        <input type="text" id="promo-input" placeholder="Введите код"/>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
